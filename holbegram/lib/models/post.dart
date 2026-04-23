@@ -1,58 +1,55 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class Users {
-  String uid;
-  String email;
-  String username;
-  String bio;
-  String photoUrl;
-  List<dynamic> followers;
-  List<dynamic> following;
-  List<dynamic> posts;
-  List<dynamic> saved;
-  String searchKey;
+class Post {
+  final String caption;
+  final String uid;
+  final String username;
+  final List likes;
+  final String postId;
+  final DateTime datePublished;
+  final String postUrl;
+  final String profImage;
+  final String publicId;
 
-
-  Users({
+  Post({
+    required this.caption,
     required this.uid,
-    required this.email,
     required this.username,
-    required this.bio,
-    required this.photoUrl,
-    required this.followers,
-    required this.following,
-    required this.posts,
-    required this.saved,
-    required this.searchKey,
+    required this.likes,
+    required this.postId,
+    required this.datePublished,
+    required this.postUrl,
+    required this.profImage,
+    required this.publicId,
   });
 
-  static Users fromSnap(DocumentSnapshot snap) {
-    var snapshot = snap.data() as Map<String, dynamic>? ?? {};
+  static Post fromSnap(DocumentSnapshot snap) {
+    var snapshot = snap.data() as Map<String, dynamic>;
 
-    return Users(
-      uid: snapshot['uid'] ?? "", 
-      email: snapshot['email'] ?? "", 
-      username: snapshot['username'] ?? "", 
-      bio: snapshot['bio'] ?? "",
-      photoUrl: snapshot['photoUrl'] ?? "",
-      followers: List<dynamic>.from(snapshot["followers"] ?? []),
-      following: List<dynamic>.from(snapshot["following"] ?? []),
-      posts: List<dynamic>.from(snapshot["posts"] ?? []),
-      saved: List<dynamic>.from(snapshot["saved"] ?? []),
-      searchKey: snapshot['searchKey'] ?? "",
+    return Post(
+      caption: snapshot['caption'] ?? '',
+      uid: snapshot['uid'] ?? '',
+      username: snapshot['username'] ?? '',
+      likes: snapshot['likes'] ?? [],
+      postId: snapshot['postId'] ?? '',
+      datePublished: (snapshot['datePublished'] as Timestamp).toDate(),
+      postUrl: snapshot['postUrl'] ?? '',
+      profImage: snapshot['profImage'] ?? "",
+      publicId: snapshot['publicId'] ?? "",
     );
   }
 
-  Map<String, dynamic> toJson() => {
-    "uid": uid, 
-    "email": email, 
-    "username": username, 
-    "bio": bio,
-    "photoUrl": photoUrl,
-    "followers": followers,
-    "following": following,
-    "posts": posts,
-    "saved": saved,
-    "searchKey": searchKey,
-  };
+  Map<String, dynamic> toJson() {
+    return {
+      "caption": caption,
+      "uid": uid,
+      "username": username,
+      "likes": likes,
+      "postId": postId,
+      "datePublished": datePublished,
+      "postUrl": postUrl,
+      "profImage": profImage,
+      "publicId": publicId,
+    };
+  }
 }

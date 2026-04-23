@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import '../widgets/text_field.dart';
+import '../../widgets/text_field.dart';
 import 'signup_screen.dart';
+import 'methods/auth_methods.dart';
+import '../home.dart';
 
 class LoginScreen extends StatefulWidget {
   final TextEditingController emailController;
@@ -92,7 +94,27 @@ class _LoginScreenState extends State<LoginScreen> {
                           Color.fromARGB(218, 226, 37, 24),
                         ),
                       ),
-                    onPressed: () {},
+                    onPressed: () async {
+                      String res = await AuthMethode().login(
+                        email: widget.emailController.text,
+                        password: widget.passwordController.text,);
+
+                        if (!mounted) return;
+
+                        if (res == "success") {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(content: Text("login")),
+                          );
+                          Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(builder: (context) => const Home()),
+                            (route) => false);
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text(res))
+                          );
+                        }
+                    },
                     child: const Text(
                       "Log In",
                       style: TextStyle(color: Colors.white),

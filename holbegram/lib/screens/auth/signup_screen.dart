@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:holbegram/screens/login_screen.dart';
-import '../widgets/text_field.dart';
+import 'package:holbegram/screens/auth/login_screen.dart';
+import 'package:holbegram/screens/auth/upload_image_screen.dart';
+import '../../widgets/text_field.dart';
 
 class SignUp extends StatefulWidget {
   final TextEditingController emailController;
@@ -141,7 +142,24 @@ class _SignupState extends State<SignUp> {
                           Color.fromARGB(218, 226, 37, 24),
                         ),
                       ),
-                    onPressed: () {},
+                    onPressed: () async {
+                      if (widget.passwordConfirmController.text != widget.passwordController.text)
+                      {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text("password do not match"))
+                        );
+                        return;
+                      }
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => AddPicture(
+                            email: widget.emailController.text, 
+                            password: widget.passwordController.text, 
+                            username: widget.usernameController.text)
+                        ),
+                      );
+                    },
                     child: const Text(
                       "Sign Up",
                       style: TextStyle(color: Colors.white),
