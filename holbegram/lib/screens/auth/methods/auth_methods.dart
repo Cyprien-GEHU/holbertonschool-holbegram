@@ -77,5 +77,9 @@ class AuthMethode {
 
     return Users.fromSnap(snap);
   }
+
+  Future<void> logout() async {
+    await FirebaseAuth.instance.signOut();
+  }
 }
 

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import '../auth/methods/auth_methods.dart';
 import '../auth/methods/user_storage.dart';
+import '../auth/login_screen.dart';
 
 class AddPicture extends StatefulWidget {
   final String email;
@@ -134,6 +135,16 @@ class _AddPictureState extends State<AddPicture> {
                   if (res == "success") {
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(content: Text("Sign Up successful")),
+                    );
+
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => LoginScreen(
+                          emailController: TextEditingController(),
+                          passwordController: TextEditingController(),
+                        ),
+                      ),
                     );
                   } else {
                     ScaffoldMessenger.of(

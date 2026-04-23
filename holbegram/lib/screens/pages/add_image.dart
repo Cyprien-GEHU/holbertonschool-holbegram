@@ -117,9 +117,8 @@ class _AddImageState extends State<AddImage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          "Post",
+          "Add Image",
           style: TextStyle(
-            fontFamily: "Billabong",
             fontSize: 32,
             color: Colors.black,
           ),
@@ -146,6 +145,24 @@ class _AddImageState extends State<AddImage> {
 
       body: Column(
         children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Text(
+              "Add Image", 
+              style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+            ),
+          ),
+
+          const SizedBox(height: 5),
+
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Text(
+              "Choose an image from your gallery or take a one", 
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            ),
+          ),
+
           const SizedBox(height: 20),
 
           Padding(
@@ -168,13 +185,11 @@ class _AddImageState extends State<AddImage> {
                   child: Center(
                     child: Image.asset(
                       "assets/images/add.png",
-                      width: 120,
-                      height: 120,
+                      width: 240,
+                      height: 240,
                     ),
                   ),
                 ),
-
-          const SizedBox(height: 20),
         ],
       ),
     );

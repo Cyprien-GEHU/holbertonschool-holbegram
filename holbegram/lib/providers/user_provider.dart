@@ -17,4 +17,9 @@ class UserProvider with ChangeNotifier{
       debugPrint(err.toString());
     }
   }
+
+  void clearUser() {
+    _user = null;
+    notifyListeners();
+  }
 }
